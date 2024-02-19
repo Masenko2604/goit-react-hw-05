@@ -1,43 +1,29 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
-import clsx from 'clsx';
+import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { NavBar } from './NavBar/NavBar';
 
-import css from './App.module.css';
-import { Suspense, lazy } from 'react';
-
-const buildLinkClass = ({ isActive }) => {
-  return clsx(css.link, isActive && css.active);
-};
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const MoviesPage = lazy(() => import('../pages/MoviesPage/MoviesPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
+const MoviesIdPage = lazy(() => import('../pages/MoviesIdPage/MoviesIdPage'));
 const MovieCast = lazy(() => import('./MovieCast/MovieCast'));
 const MovieReviews = lazy(() => import('./MovieReviews/MovieReviews'));
-const MoviesDetailsPage = lazy(() => import('../pages/MoviesDetailsPage/MoviesDetailsPage'));
-const MoviesPage = lazy(() => import('../pages/MoviesPage/MoviesPage'));
-// const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 
-const App = () => {
+export const App = () => {
   return (
     <div>
-      <nav className={css.nav}>
-        <NavLink to="/" className={buildLinkClass}>
-          Home
-        </NavLink>
-
-        <NavLink to="/movies" className={buildLinkClass}>
-          Movies
-        </NavLink>
-      </nav>
-      <Suspense>
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <NavBar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          {/* <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieId" element={<MoviesDetailsPage />}>
-            <Route path="/cast" element={<MovieCast />} />
-            <Route path="/reviews" element={<MovieReviews />} />
-          </Route> */}
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Routes>{' '}
+          <Route index element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MoviesIdPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Suspense>
     </div>
   );
 };
-export default App;

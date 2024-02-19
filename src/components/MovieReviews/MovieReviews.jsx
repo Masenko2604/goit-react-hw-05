@@ -1,29 +1,28 @@
-import { getCast } from '../../services/api';
+import { getReviews } from '../../services/api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader } from '../Loader/Loader';
 import { ErrorMassage } from '../ErrorMassage/ErrorMassage';
 
-const MovieCast = () => {
+export const MovieReviews = () => {
   const { movieId } = useParams();
-  const [movieCastData, setMovieCastData] = useState([]);
+  const [movieReviewsData, setMovieReviewsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getCast(movieId);
-        if (data && data.cast) {
+        const data = await getReviews(movieId);
+        if (data && data.results) {
           setLoading(true);
-          setMovieCastData(data.cast);
+          setMovieReviewsData(data.results);
         } else {
-          setMovieCastData([]);
+          setMovieReviewsData([]);
         }
         setLoading(false);
       } catch (error) {
         setError(true);
-        throw error;
       } finally {
         setLoading(false);
       }
@@ -35,17 +34,13 @@ const MovieCast = () => {
     <div>
       {loading && <Loader />}
       {error && <ErrorMassage />}
-      {movieCastData && (
+      {movieReviewsData && (
         <div>
           <ul>
-            {movieCastData.map(actor => (
-              <li key={actor.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
-                  alt={actor.name}
-                />
-                <h4>{actor.name}</h4>
-                <p>Character: {actor.character}</p>
+            {movieReviewsData.map(review => (
+              <li key={review.id}>
+                <h2> {review.author}</h2>
+                <p>{review.content}</p>
               </li>
             ))}
           </ul>
@@ -54,4 +49,4 @@ const MovieCast = () => {
     </div>
   );
 };
-export default MovieCast;
+export default MovieReviews;
