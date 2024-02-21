@@ -20,7 +20,7 @@
   transition: 250ms;
 
   &:hover {
-    background-color: rgb(113, 80, 23);
+    background-color: rgb(100, 81, 49);
       color: rgb(255, 228, 196);
   }
 }
