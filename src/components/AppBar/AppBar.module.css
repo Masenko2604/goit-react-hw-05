@@ -9,7 +9,8 @@
   justify-content: flex-start;
   align-items: center;
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.4);
-  background-color: rgb(204, 169, 126);
+  background-image: linear-gradient(rgba(181, 239, 229, 0.1),
+        rgba(181, 239, 229, 0.1)), url(../src/images/fones.jpg);
 }
 
 .link {
