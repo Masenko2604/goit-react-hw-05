@@ -12,7 +12,7 @@
 
   &:hover {
     scale: 1.1;
-  background-color: rgb(77, 46, 11);
+  background-color: rgb(199, 122, 35);
     color: antiquewhite;
   }
 }
@@ -42,12 +42,12 @@
   transition: 335ms;
 
   &:hover {
-    background-color: rgb(77, 46, 11);
+    background-color: rgb(199, 122, 35);
     color: rgb(250, 235, 215);
   }
 }
 
 .active {
-  background-color: rgb(77, 46, 11);
+  background-color:rgb(199, 122, 35);
     color: rgb(250, 235, 215);
 }
