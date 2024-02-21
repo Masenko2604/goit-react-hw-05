@@ -6,7 +6,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { MovieDetailsTitle } from '../components/MovieDetailsTitle/MovieDetailsTitle';
 import css from '../pages/MovieDetailsPage.module.css';
 import clsx from 'clsx';
-import { ErrorMessage } from '../components/ErrorMassage/ErrorMassage';
+import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
 const MovieDetailsPage = () => {
   const { id } = useParams();
   const [dataById, setDataByID] = useState({});

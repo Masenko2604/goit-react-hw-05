@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MovieList } from '../components/MovieList/MovieList';
 import { fetchTrendDay } from '../API/fetchMovieApi';
 import { Loader } from '../components/Loader/Loader';
-import { ErrorMessage } from '../components/ErrorMassage/ErrorMassage';
+import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
 const HomePage = () => {
   const [movie, setMovies] = useState([]);
   const [loader, setLoader] = useState(false);

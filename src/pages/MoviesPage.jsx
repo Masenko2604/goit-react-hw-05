@@ -4,7 +4,7 @@ import { fetchByQuery } from '../API/fetchMovieApi';
 import { MovieList } from '../components/MovieList/MovieList';
 import { useSearchParams } from 'react-router-dom';
 import { Loader } from '../components/Loader/Loader';
-import { ErrorMessage } from '../components/ErrorMassage/ErrorMassage';
+import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
 import toast from 'react-hot-toast';
 
 const MoviesPage = () => {
