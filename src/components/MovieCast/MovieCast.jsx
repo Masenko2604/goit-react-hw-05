@@ -1,57 +1,48 @@
-import { getCast } from '../../services/api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchInfo } from '../../API/fetchMovieApi';
 import { Loader } from '../Loader/Loader';
-import { ErrorMassage } from '../ErrorMassage/ErrorMassage';
-
+import css from './MovieCast.module.css';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { MovieCastItem } from '../MovieCastItem/MovieCastItem';
 const MovieCast = () => {
-  const { movieId } = useParams();
-  const [movieCastData, setMovieCastData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
-
+  const [cast, setCast] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
+    setLoader(true);
+    setError(false);
+    setCast([]);
+    const getReviews = async () => {
       try {
-        const data = await getCast(movieId);
-        if (data && data.cast) {
-          setLoading(true);
-          setMovieCastData(data.cast);
-        } else {
-          setMovieCastData([]);
-        }
-        setLoading(false);
+        const response = await fetchInfo(id, 'credits');
+        setCast(response.cast);
       } catch (error) {
+        console.log(error);
         setError(true);
-        throw error;
       } finally {
-        setLoading(false);
+        setLoader(false);
       }
     };
-    fetchData();
-  }, [movieId]);
-
+    getReviews();
+  }, [id]);
   return (
-    <div>
-      {loading && <Loader />}
-      {error && <ErrorMassage />}
-      {movieCastData && (
-        <div>
-          <ul>
-            {movieCastData.map(actor => (
-              <li key={actor.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
-                  alt={actor.name}
-                />
-                <h4>{actor.name}</h4>
-                <p>Character: {actor.character}</p>
+    <>
+      <ul className={css.list}>
+        {cast.length > 0 &&
+          cast.map(item => {
+            return (
+              <li key={item.id}>
+                <MovieCastItem data={item} />
               </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+            );
+          })}
+      </ul>
+      {cast.length === 0 && !error && <p>No information</p>}
+      {loader && <Loader />}
+      {error && <ErrorMessage />}
+    </>
   );
 };
 export default MovieCast;

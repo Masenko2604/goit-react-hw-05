@@ -1,22 +1,34 @@
-import styled from './SearchBar.module.css';
-
-export const SearchBar = ({ onSearch }) => {
-  const handleSubmit = e => {
+import toast from 'react-hot-toast';
+import css from './SearchBar.module.css';
+import { IoSearch } from 'react-icons/io5';
+export const SearchBar = ({ handleSubmit }) => {
+  const onSubmit = e => {
     e.preventDefault();
-    const query = e.target.elements.query.value.trim().toLowerCase();
-    if (!query) return;
-    onSearch(query);
+    const query = e.target.query.value.trim().toLowerCase();
+    if (!query) {
+      toast.error('Please enter your search query');
+      return;
+    }
+    handleSubmit(query);
     e.target.reset();
   };
-
   return (
-    <div>
-      <header>
-        <form onSubmit={handleSubmit} className={styled.formsearch}>
-          <button type="submit"></button>
-          <input type="text" name="query" autoComplete="off" autoFocus placeholder="Search films" />
-        </form>
-      </header>
-    </div>
+    <>
+      <form className={css.form} onSubmit={onSubmit}>
+        <div className={css.divForm}>
+          <input
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            className={css.input}
+            name="query"
+          />
+          <button type="submit" className={css.btn}>
+            <IoSearch className={css.icon} />
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
