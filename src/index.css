@@ -1,9 +1,7 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
-  background-image: linear-gradient(rgba(181, 239, 229, 0.1),
-        rgba(181, 239, 229, 0.1)), url(../src/images/fones.jpg);
-  }
+  background-color: rgb(224, 208, 188);
 
 
 h1,
